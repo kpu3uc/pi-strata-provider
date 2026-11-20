@@ -6,20 +6,20 @@
 
 > 软件包和仓库统一命名为 `pi-strata-provider`，正式稳定版本从 **1.0.0** 开始。
 >
-> [软件包页面](https://www.npmjs.com/package/pi-strata-provider) · [仓库发行版](https://github.com/Lxxyx/pi-strata-provider/releases)
+> [本分支仓库](https://github.com/kpu3uc/pi-strata-provider) · [发行版](https://github.com/kpu3uc/pi-strata-provider/releases) · [上游 npm 软件包](https://www.npmjs.com/package/pi-strata-provider)
 
 ## 本分支：适配 Windows 上的 Strata 0.1.63
 
 上游 1.0.0 通过 `/props`、`/health`、`/api/models` 发现模型目录。0.1.63 这些接口只在 **引擎** 端口上存在：网关只服务 `/v1/*`，对 `/props`、`/health`、`/models` 返回 404（部分路径会被 HTML 页面吞掉），也不提供 `max_generated`，所以目录要么拿到错误的上下文窗口，要么完全为空。
 
-本分支改为实测正在运行的安装：目录来自网关的 `/v1/models`（`context_length`、`meta.n_ctx`、`architecture.input_modalities`），只有网关不报告时才回退到引擎的 `/props`；端点、端口与密钥直接读 Strata 自己的状态文件（`AppData/Local/Strata/launch/*.json`、`~/.strata/data/native-instances/*.json`），受保护的网关无需手写密钥即可认证；提供商标识默认是 **`strata`**；思考预算按级别下发 `reasoning_budget_tokens` 且不超过输出上限的一半。测量记录见 [FORK-PLAN.md](FORK-PLAN.md)。
+本分支改为实测正在运行的安装：目录来自网关的 `/v1/models`（`context_length`、`meta.n_ctx`、`architecture.input_modalities`），只有网关不报告时才回退到引擎的 `/props`；端点、端口与密钥直接读 Strata 自己的状态文件（`AppData/Local/Strata/launch/*.json`、`~/.strata/data/native-instances/*.json`），受保护的网关无需手写密钥即可认证；提供商标识默认是 **`strata`**；思考预算按级别下发 `reasoning_budget_tokens` 且不超过输出上限的一半。测量记录见 [FORK-PLAN.md](FORK-PLAN.md)。本分支请从本仓库安装；npm 上的 `pi-strata-provider` 是上游软件包，不包含这些修正。
 
 ## 快速开始
 
 1. 启动本地 Strata 服务，通常地址为 `http://127.0.0.1:8080/v1`。
 2. 安装扩展：
    ```sh
-   pi install npm:pi-strata-provider
+   pi install git:github.com/kpu3uc/pi-strata-provider
    ```
 3. 启动 pi，输入 `/strata`，选择“Apply recommended Pi setup”。
 4. 正常使用。扩展在启动、打开模型选择器以及刷新模型目录时获取最新元数据。
@@ -29,7 +29,7 @@
 也可以安装固定版本的仓库发行版：
 
 ```sh
-pi install git:github.com/Lxxyx/pi-strata-provider@v1.0.0
+pi install git:github.com/kpu3uc/pi-strata-provider
 ```
 
 如果本机的镜像站尚未同步新包，可以临时指定官方注册表，不改全局设置：

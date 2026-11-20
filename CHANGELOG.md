@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased (fork: [kpu3uc/pi-strata-provider](https://github.com/kpu3uc/pi-strata-provider))
+
+- Discover the catalog through the gateway's `/v1/models` (`context_length`, `meta.n_ctx`, `architecture.input_modalities`) instead of `/props`, `/health` and `/api/models`, which Strata 0.1.63 answers only on the engine port; query the engine only for what the gateway does not publish, and probe a model once when neither side reports whether it thinks.
+- Read endpoints, dynamic engine ports, API keys, pack templates and the gateway key from Strata's own state on disk (`AppData/Local/Strata/launch/*.json`, `~/.strata/data/native-instances/*.json`), so a protected gateway authenticates without a handwritten key.
+- Default the provider ID to `strata` (was `local`), configurable through `provider`, `PI_STRATA_PROVIDER`, with `PI_STRATA_LOCAL_STATE` and `PI_STRATA_CAPABILITY_PROBE` switches for the new behavior.
+- Raise `defaultMaxTokens` from 16384 to 32768, bound per-level `reasoning_budget_tokens` by half the output ceiling (`off` sends an explicit 0 to switch off a server-configured budget) and reserve the output ceiling plus thinking in compaction presets.
+- Point repository metadata and installation instructions at this fork; the npm package name still belongs to upstream.
+- Grow the offline suite to 62 tests, including the measured 0.1.63 endpoints and capability shapes.
+
 ## 1.0.0
 
 - Start the stable version line at `1.0.0`, preserving the published `0.1.2` as historical metadata.

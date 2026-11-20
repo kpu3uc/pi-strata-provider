@@ -7,7 +7,7 @@ Discover local models automatically instead of maintaining a handwritten provide
 
 > Package and repository name: `pi-strata-provider`. The stable release line starts at **1.0.0**.
 >
-> [npm package](https://www.npmjs.com/package/pi-strata-provider) · [GitHub releases](https://github.com/Lxxyx/pi-strata-provider/releases)
+> [Fork repository](https://github.com/kpu3uc/pi-strata-provider) · [Releases](https://github.com/kpu3uc/pi-strata-provider/releases) · [Upstream npm package](https://www.npmjs.com/package/pi-strata-provider)
 
 ## This fork: works with Strata 0.1.63 on Windows
 
@@ -22,12 +22,14 @@ This fork measures the running install instead of guessing its shape:
 
 The measurements behind these changes are in [FORK-PLAN.md](FORK-PLAN.md). `npm run check` covers them in unit tests; `npm run test:e2e` runs 14 live scenarios against a running Strata.
 
+Install the fork from this repository. The `pi-strata-provider` name on npm is upstream's package and does not contain these fixes.
+
 ## Quick start
 
 1. Start Strata. Its usual local endpoint is `http://127.0.0.1:8080/v1`.
 2. Install:
    ```sh
-   pi install npm:pi-strata-provider
+   pi install git:github.com/kpu3uc/pi-strata-provider
    ```
 3. Start Pi, run `/strata`, and choose **Apply recommended Pi setup**.
    This selects **Strata Auto (tuned)** and applies local-model compaction presets.
@@ -41,7 +43,7 @@ For a protected server, run `/login` and choose **Strata**, or use `/login strat
 You can also install the pinned GitHub release:
 
 ```sh
-pi install git:github.com/Lxxyx/pi-strata-provider@v1.0.0
+pi install git:github.com/kpu3uc/pi-strata-provider
 ```
 
 If your npm registry mirror has not synced this new package yet, use the official registry:
@@ -263,7 +265,7 @@ pi remove git:github.com/Lxxyx/pi-strata-provder@v0.1.1
 pi install npm:pi-strata-provider
 ```
 
-The provider ID remains `local`, the automatic model remains `strata/strata-auto`, and the optional configuration remains `strata-provider.json`.
+The provider ID defaults to `strata` in this fork (upstream used `local`), the automatic model remains `strata/strata-auto`, and the optional configuration remains `strata-provider.json`.
 The correctly spelled npm package is `pi-strata-provider`.
 
 ## Migrating a handwritten local provider
